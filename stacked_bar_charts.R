@@ -97,3 +97,18 @@ bavarian_unemployment_latest %>%
   hc_plotOptions(bar = list(stacking = "stack", pointWidth = 15)) %>%
   hc_xAxis(title = NULL) %>%
   hc_yAxis(title = list(text = "Unemployed"))
+
+#unemployment rate instead of absolute numbers
+
+bavarian_unemployment_latest %>%
+  filter(Datum >= as.Date("2017-12-01")) %>%
+  ggplot(aes(x = Datum, y = Quote)) +
+  geom_bar(aes(fill = Region), stat = "summary", position = "dodge") +
+  geom_errorbar(aes(ymax = `Bayern gesamt Quote`, ymin = `Bayern gesamt Quote`, colour = "Bavaria, total"), fun.y = mean,size = 1.25) +
+  scale_x_date(name = NULL, date_labels = "%b %y") +
+  scale_y_continuous(name = "Unemployment rate, %") +
+  scale_fill_brewer(direction = -1) +
+  scale_colour_manual(name = "", values = "black" ) +
+  theme_minimal() +
+  theme(legend.position = "bottom") +
+  guides(fill = guide_legend(nrow = 1))
