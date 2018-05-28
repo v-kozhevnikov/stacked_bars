@@ -85,3 +85,15 @@ bavarian_unemployment_latest %>%
   theme_minimal() +
   theme(legend.position = "bottom") +
   guides(fill = guide_legend(nrow = 1))
+
+
+#Highcharter interactive bar chart
+
+bavarian_unemployment_latest %>%
+  hchart(type = "bar",
+         hcaes(x = Datum,
+               y = Arbeitslose,
+               group = Region)) %>%
+  hc_plotOptions(bar = list(stacking = "stack", pointWidth = 15)) %>%
+  hc_xAxis(title = NULL) %>%
+  hc_yAxis(title = list(text = "Unemployed"))
