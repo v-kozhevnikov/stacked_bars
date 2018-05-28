@@ -71,3 +71,17 @@ bavarian_unemployment_latest %>%
   theme_minimal() +
   theme(legend.position = "bottom") +
   guides(fill = guide_legend(nrow = 1))
+
+
+# dodge bar + stack bar
+bavarian_unemployment_latest %>%
+  filter(Datum >= as.Date("2017-12-01")) %>%
+  ggplot() +
+  geom_bar(aes(x = Datum, y = Arbeitslose, fill = Region), stat = "summary", position = "dodge") +
+  geom_bar(aes(x = Datum, y = Arbeitslose), stat = "summary", fun.y = sum, alpha = 0, color = "black") +
+  scale_x_date(name = NULL, date_labels = "%b %y") +
+  scale_y_continuous(name = "Unemployed", breaks = seq(0,250000,25000)) +
+  scale_fill_brewer(direction = -1) +
+  theme_minimal() +
+  theme(legend.position = "bottom") +
+  guides(fill = guide_legend(nrow = 1))
