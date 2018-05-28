@@ -45,3 +45,14 @@ bavarian_unemployment_latest$`Quote` <- ifelse(
   bavarian_unemployment_latest$`Quote` <10, 
   bavarian_unemployment_latest$`Quote`,
   bavarian_unemployment_latest$`Quote`/10)
+
+# stacked bar with changed colours and background
+
+ggplot(bavarian_unemployment_latest) +
+  geom_bar(aes(x = Datum, y = Arbeitslose, fill = Region), stat = "summary", position = "stack") +
+  scale_x_date(name = NULL, date_labels = "%b %y") +
+  scale_y_continuous(name = "Unemployed") +
+  scale_fill_brewer(direction = -1) +
+  theme_minimal() +
+  theme(legend.position = "bottom") +
+  guides(fill = guide_legend(nrow = 1))
