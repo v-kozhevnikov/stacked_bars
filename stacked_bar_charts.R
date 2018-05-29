@@ -90,11 +90,11 @@ bavarian_unemployment_latest %>%
 #Highcharter interactive bar chart
 
 bavarian_unemployment_latest %>%
-  hchart(type = "bar",
+  hchart(type = "column",
          hcaes(x = Datum,
                y = Arbeitslose,
                group = Region)) %>%
-  hc_plotOptions(bar = list(stacking = "stack", pointWidth = 15)) %>%
+  hc_plotOptions(column = list(stacking = "stack", pointWidth = 30)) %>%
   hc_xAxis(title = NULL) %>%
   hc_yAxis(title = list(text = "Unemployed"))
 
