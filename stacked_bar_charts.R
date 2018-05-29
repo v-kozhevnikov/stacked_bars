@@ -112,3 +112,23 @@ bavarian_unemployment_latest %>%
   theme_minimal() +
   theme(legend.position = "bottom") +
   guides(fill = guide_legend(nrow = 1))
+
+#Highcharter line plot
+
+bv <- bavarian_unemployment_latest %>%
+  arrange(desc(Datum))
+
+highchart(type = "stock") %>%
+  hc_add_series(data = bv,
+                type = "line",
+                hcaes(x = Datum,
+                      y = Quote,
+                      group = Region)) %>%
+  hc_add_series(data = bv,
+                name = "Bavaria, total",
+                type = "line",
+                hcaes(x = Datum,
+                      y = `Bayern gesamt Quote`),
+                width = 5) %>%
+  hc_legend(enabled = TRUE) %>%
+  hc_yAxis(title = list(text = "Unemployment rate, %"))
